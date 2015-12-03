@@ -10,12 +10,31 @@ var {
   View,
   Image,
   TouchableHighlight,
-  Component
+  Component,
+  ActivityIndicatorIOS
 } = React;
 
 class Login extends Component {
   constructor(props){
     super(props);
+
+    this.state = {
+      showProgress: false
+    }
+  }
+
+  onLoginPressed(){
+    console.log('logging in');
+    this.setState({showProgress: true});
+
+    fetch('https://api.github.com/search/repositories?q=react')
+    .then((response) => {
+        return response.json();
+      })
+    .then((results) => {
+        console.log(results);
+        this.setState({showProgress: false});
+      });
   }
 
   render(){
@@ -27,20 +46,33 @@ class Login extends Component {
        <Text style={styles.heading}>
          Github browser
        </Text>
-       <TextInput style={styles.input}
-          placeholder="Github username" />
-       <TextInput style={styles.input}
+       <TextInput
+          onChangeText={(text)=> console.log('da')}
+          style={styles.input}
+          placeholder="Github username"
+         />
+       <TextInput
+          onChangeText={(text)=> this.setState({password: text})}
+          style={styles.input}
           placeholder="Github password"
           secureTextEntry="true" />
        <TouchableHighlight
+          onPress={this.onLoginPressed.bind(this)}
           style={styles.button}>
            <Text style={styles.buttonText}>
               Log in
            </Text>
        </TouchableHighlight>
+       <ActivityIndicatorIOS
+          animating={this.state.showProgress}
+          size="large"
+          style={styles.loader}
+         />
     </View>
    );
   }
+
+
 }
 
 var styles = StyleSheet.create({
@@ -78,6 +110,9 @@ var styles = StyleSheet.create({
     fontSize: 22,
     color: '#FFF',
     alignSelf: 'center'
+  },
+  loader: {
+    marginTop: 20
   }
 
 });

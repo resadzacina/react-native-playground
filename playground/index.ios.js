@@ -38,6 +38,17 @@ var styles = StyleSheet.create({
   }
 })
 
+var Login = require('./Login');
+
+var GithubBrowser = React.createClass({
+  render: function() {
+    var message = 'hello there 2';
+    return(
+      <Login />
+    );
+  }
+});
+
 var swiper = React.createClass({
   render: function() {
     return (
@@ -56,4 +67,4 @@ var swiper = React.createClass({
   }
 })
 
-AppRegistry.registerComponent('playground', () => swiper)
+AppRegistry.registerComponent('playground', () => GithubBrowser)
