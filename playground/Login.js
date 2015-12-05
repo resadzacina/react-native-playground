@@ -28,36 +28,14 @@ class Login extends Component {
     console.log('logging in');
     this.setState({showProgress: true});
 
-    var b = new buffer.Buffer(this.state.username + ':' + this.state.password);
-    var encodedAuth = b.toString('base64');
-
-    fetch('https://api.github.com/user', {
-      headers: {
-        'Authorization': 'Basic ' + encodedAuth
-      }
-    })
-    .then((response) => {
-      if(response.status >= 200 && response.status < 300){
-        return response;
-      }
-
-      throw {
-        badCredentials: response.status == 401,
-        unknownError: response.status != 401
-      }
-    })
-    .then((response) => {
-      return response.json();
-    })
-    .then((results) => {
-      console.log(results);
-      this.setState({success: true})
-    })
-    .catch((err)=> {
-      this.setState(err);
-    })
-    .finally(()=> {
-      this.setState({showProgress: false});
+    var authService = require('./AuthService');
+    authService.login({
+      username: this.state.username,
+      password: this.state.password
+    }, (results)=>{
+      this.setState(Object.assign({
+        showProgress: false
+      }, results));
     });
   }
 
