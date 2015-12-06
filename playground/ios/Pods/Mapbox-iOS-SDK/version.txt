@@ -1,0 +1,1 @@
+https://github.com/mapbox/mapbox-gl-native/commit/6d4e86f41d

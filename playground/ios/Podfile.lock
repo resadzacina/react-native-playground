@@ -1,0 +1,20 @@
+PODS:
+  - Mapbox-iOS-SDK (3.0.0)
+  - ObjectiveSugar (1.1.0)
+  - RCTMapboxGL (2.1.0):
+    - Mapbox-iOS-SDK (= 3.0.0)
+
+DEPENDENCIES:
+  - ObjectiveSugar
+  - RCTMapboxGL (from `../node_modules/react-native-mapbox-gl/ios`)
+
+EXTERNAL SOURCES:
+  RCTMapboxGL:
+    :path: ../node_modules/react-native-mapbox-gl/ios
+
+SPEC CHECKSUMS:
+  Mapbox-iOS-SDK: 5e7bafc554a15ebfc615d8b0fa0a0b5d31faac70
+  ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
+  RCTMapboxGL: 8c8674998316d026d0a2a9704b3ae0165b90fd8a
+
+COCOAPODS: 0.39.0
