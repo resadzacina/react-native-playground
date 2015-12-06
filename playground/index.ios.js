@@ -1,6 +1,4 @@
-var Swiper = require('react-native-swiper')
-// es6
-// import Swiper from 'react-native-swiper'
+'use strict';
 
 var React = require('react-native');
 var {
@@ -8,63 +6,74 @@ var {
   StyleSheet,
   Text,
   View,
-} = React;
-
-var styles = StyleSheet.create({
-  wrapper: {
-  },
-  slide1: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9DD6EB',
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#97CAE5',
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9',
-  },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold',
-  }
-})
+  ActivityIndicatorIOS
+  } = React;
 
 var Login = require('./Login');
+var AuthService = require('./AuthService');
 
 var GithubBrowser = React.createClass({
+  componentDidMount: function(){
+    AuthService.getAuthInfo((err, authInfo)=> {
+      this.setState({
+        checkingAuth: false,
+        isLoggedIn: authInfo != null
+      })
+    });
+  },
+
   render: function() {
-    var message = 'hello there 2';
-    return(
-      <Login />
-    );
+    if(this.state.checkingAuth){
+      return (
+        <View style={styles.container}>
+          <ActivityIndicatorIOS
+            animating={true}
+            size="large"
+            style={styles.loader} />
+        </View>
+      );
+    }
+
+    if(this.state.isLoggedIn){
+      return (
+        <View style={styles.container}>
+          <Text style={styles.welcome}>Logged in!</Text>
+        </View>
+      );
+    }else{
+      return (
+        <Login onLogin={this.onLogin} />
+      );
+    }
+  },
+  onLogin: function(){
+    this.setState({isLoggedIn: true});
+  },
+  getInitialState: function(){
+    return {
+      isLoggedIn: false,
+      checkingAuth: true
+    }
   }
 });
 
-var swiper = React.createClass({
-  render: function() {
-    return (
-      <Swiper style={styles.wrapper} showsButtons={true}>
-        <View style={styles.slide1}>
-          <Text style={styles.text}>Hello Swiper</Text>
-        </View>
-        <View style={styles.slide2}>
-          <Text style={styles.text}>Beautiful</Text>
-        </View>
-        <View style={styles.slide3}>
-          <Text style={styles.text}>And simple</Text>
-        </View>
-      </Swiper>
-    )
-  }
-})
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+});
 
-AppRegistry.registerComponent('playground', () => GithubBrowser)
+AppRegistry.registerComponent('playground', () => GithubBrowser);
