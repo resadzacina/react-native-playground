@@ -11,6 +11,8 @@ var {
     TabBarIOS
 } = React;
 
+var ActivityList = require('./ActivityList')
+
 class AppContainer extends Component {
     constructor(props){
         super(props);
@@ -41,6 +43,14 @@ class AppContainer extends Component {
                 </View>
               </Swiper>
             </TabBarIOS.Item>
+          <TabBarIOS.Item
+            title="Activity"
+            selected={this.state.selectedTab == 'activity'}
+            icon={require('image!search')}
+            onPress={()=> this.setState({selectedTab: 'activity'})}
+          >
+            <ActivityList />
+          </TabBarIOS.Item>
             <TabBarIOS.Item
                 title="Search"
                 selected={this.state.selectedTab == 'search'}
