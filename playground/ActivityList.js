@@ -7,6 +7,7 @@ var {
   View,
   Component,
   ListView,
+  ActivityIndicatorIOS
   } = React;
 
 class ActivityList extends Component {
@@ -18,7 +19,8 @@ class ActivityList extends Component {
     });
 
     this.state = {
-      dataSource: ds.cloneWithRows(['A', 'B', 'C'])
+      dataSource: ds.cloneWithRows(['A', 'B', 'C']),
+      showProgress: true
     }
   }
 
@@ -43,8 +45,10 @@ class ActivityList extends Component {
           console.log(feedItems);
           this.setState({
            dataSource: this.state.dataSource
-              .cloneWithRows(feedItems)
+              .cloneWithRows(feedItems),
+            showProgress: false
           })
+
 
         })
 
@@ -62,6 +66,20 @@ class ActivityList extends Component {
   }
 
   render(){
+    if(this.state.showProgress){
+      return (
+        <View style={{
+          flex: 1,
+          justifyContent: 'center'
+        }}>
+          <ActivityIndicatorIOS
+            size="large"
+            animating={true} 
+          />
+        </View>
+      )
+    }
+
     return (
       <View style={{
         flex: 1,
