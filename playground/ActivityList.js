@@ -7,7 +7,8 @@ var {
   View,
   Component,
   ListView,
-  ActivityIndicatorIOS
+  ActivityIndicatorIOS,
+  Image
   } = React;
 
 class ActivityList extends Component {
@@ -56,13 +57,25 @@ class ActivityList extends Component {
   }
 
   renderRow(rowData){
-    return <Text style={{
-      color: '#333',
-      backgroundColor: '#fff',
-      alignSelf: 'center'
-    }}>
-      {rowData.actor != null ? rowData.actor.login : ''}
-    </Text>
+    return(
+     <View style={{
+      flex: 1,
+      flexDirection: 'row',
+      padding: 20,
+      alignItems: 'center',
+      borderColor: '#D7D7D7',
+      borderBottomWidth: 1
+     }}>
+       <Image
+         source={{uri: rowData.actor.avatar_url}}
+         style={{
+          height: 36,
+          width: 36,
+          borderRadius: 18
+         }}
+       />
+     </View>
+    );
   }
 
   render(){
@@ -74,7 +87,7 @@ class ActivityList extends Component {
         }}>
           <ActivityIndicatorIOS
             size="large"
-            animating={true} 
+            animating={true}
           />
         </View>
       )
