@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var moment = require('moment');
 
 var {
   Text,
@@ -74,6 +75,20 @@ class ActivityList extends Component {
           borderRadius: 18
          }}
        />
+       <View style={{paddingLeft: 20}}>
+         <Text style={{backgroundColor: '#fff'}}>
+           {moment(rowData.created_at).fromNow()}
+         </Text>
+         <Text style={{backgroundColor: '#fff'}}>
+           {rowData.actor.login} pushed to
+         </Text>
+         <Text style={{backgroundColor: '#fff'}}>
+           {rowData.payload.ref.replace('refs/heads/', '')}
+         </Text>
+         <Text style={{backgroundColor: '#fff'}}>
+           at <Text style={{fontWeight: '600'}}>{rowData.repo.name}</Text>
+         </Text>
+       </View>
      </View>
     );
   }
