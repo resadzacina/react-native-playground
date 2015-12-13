@@ -6,13 +6,17 @@
 
 React Native playground is a small experimental React app meant to show multiple React features.
 
+It is made out of many heterogenous knowledge pieces ( blogs, snippets, react documentation, other projects ).
+
 ## features
 
-- Login
+- Login ( Github API )
 - Tabs
-- Swiper
+- Regular Swiper
+- Tinder-like Card Swiper interface ( Animationzz! )
 - Components and backend integration code
-- Activity List ( Github )
+- Activity List ( Github API )
+- Map View
 
 ## Required for development
 
